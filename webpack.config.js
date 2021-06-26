@@ -4,16 +4,21 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: `${__dirname}/build`,
     publicPath: '/build/',
     filename: '[name].js',
   },
   context: `${__dirname}/src`,
-  entry: ['options.js', 'popup.js', 'foreground.js', 'background.js'],
+  entry: {
+    background: 'background.js',
+    foreground: 'foreground.js',
+    options: 'options.js',
+    popup: 'popup.js',
+  },
   resolve: {
-    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    modules: [`${__dirname}/src`, 'node_modules'],
     alias: {
-      react: path.join(__dirname, 'node_modules', 'react'),
+      react: `${__dirname}/node_modules/react`,
     },
   },
   module: {
