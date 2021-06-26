@@ -1,0 +1,28 @@
+{
+    "name": "vexblock",
+    "description": "Block vexations across the web",
+    "version": "0.1.0",
+    "manifest_version": 3,
+    "icons": {
+        "128": "./icons/128.png"
+    },
+    "background": {
+        "service_worker": "./background.js"
+    },
+    "action": {
+        "default_popup": "./popup.html",
+        "default_icons": {
+            "128": "./icons/128.png"
+        }
+    },
+    "options_page": "./options.html",
+    "permissions": [
+        "activeTab",
+        "tabs",
+        "storage",
+        "scripting"
+    ],
+    "host_permissions": [
+        "*"
+    ]
+}
