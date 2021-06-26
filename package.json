@@ -1,0 +1,23 @@
+{
+  "name": "vexblock",
+  "version": "0.1.0",
+  "description": "Block vexations across the web",
+  "main": "",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isaec/vexblock.git"
+  },
+  "author": "isaac",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isaec/vexblock/issues"
+  },
+  "homepage": "https://github.com/isaec/vexblock#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
