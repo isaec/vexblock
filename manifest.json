@@ -7,15 +7,15 @@
         "128": "./icons/128.png"
     },
     "background": {
-        "service_worker": "./background.js"
+        "service_worker": "./build/background.js"
     },
     "action": {
-        "default_popup": "./popup.html",
+        "default_popup": "./build/popup.html",
         "default_icons": {
             "128": "./icons/128.png"
         }
     },
-    "options_page": "./options.html",
+    "options_page": "./build/options.html",
     "permissions": [
         "activeTab",
         "tabs",
