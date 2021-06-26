@@ -46,9 +46,11 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
+        "*.html",
         {
-          from: "*.html"
-        }
+          from: "browser",
+          context: '..',
+        },
       ]
     })
   ],
