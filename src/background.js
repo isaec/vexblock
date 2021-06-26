@@ -1,1 +1,3 @@
-console.log('back')
+chrome.runtime.onInstalled.addListener(() => {
+  console.log('woot')
+})
