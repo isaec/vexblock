@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   output: {
@@ -38,13 +39,19 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebPackPlugin({
-      template: 'options.html',
-      filename: '../build/options.html',
-    }),
-    new HtmlWebPackPlugin({
-      template: 'popup.html',
-      filename: '../build/popup.html',
-    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "*.html"
+        }
+      ]
+    })
   ],
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new HtmlWebPackPlugin(),
+      '...',
+    ]
+  }
 }
