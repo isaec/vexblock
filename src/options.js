@@ -1,1 +1,1 @@
-console.log("live!")
+console.log('live!')
