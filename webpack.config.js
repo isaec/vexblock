@@ -6,6 +6,8 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
   },
+  context: `${__dirname}/src`,
+  entry: ['options.js', 'popup.js', 'foreground.js', 'background.js'],
   resolve: {
     modules: [path.join(__dirname, 'src'), 'node_modules'],
     alias: {
@@ -36,7 +38,10 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './src/index.html',
+      template: 'options.html',
+    }),
+    new HtmlWebPackPlugin({
+      template: 'popup.html',
     }),
   ],
 }
