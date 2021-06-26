@@ -18,6 +18,9 @@ globals:
     '__dirname': readonly,
     chrome: readonly,
   }
+ignorePatterns:
+  - "build"
+  - "node_modules"
 rules:
   indent:
     - error

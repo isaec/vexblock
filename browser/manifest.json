@@ -23,6 +23,6 @@
         "scripting"
     ],
     "host_permissions": [
-        "*"
+        "*://*/*"
     ]
 }
