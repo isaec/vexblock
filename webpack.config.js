@@ -4,7 +4,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    publicPath: '/build/',
+    filename: '[name].js',
   },
   context: `${__dirname}/src`,
   entry: ['options.js', 'popup.js', 'foreground.js', 'background.js'],
@@ -39,9 +40,11 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: 'options.html',
+      filename: '../build/options.html',
     }),
     new HtmlWebPackPlugin({
       template: 'popup.html',
+      filename: '../build/popup.html',
     }),
   ],
 }
