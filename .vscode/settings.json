@@ -1,7 +1,8 @@
 {
     "cSpell.words": [
-        "readonly",
-        "vexblock"
+      "esbuild",
+      "readonly",
+      "vexblock"
     ],
     "editor.detectIndentation": false,
     "editor.tabSize": 2
