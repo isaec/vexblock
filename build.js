@@ -1,10 +1,21 @@
 const esbuild = require('esbuild')
-let buildCount = 0
+const Path = require('path')
+const { copyFile } = require('fs/promises')
+
+const copyFileArray = (prefix, arr, suffix = '') => Promise.all(arr.map(path => copyFile(
+  `${prefix}/${path}${suffix}`,
+  `build/${Path.basename(path)}${suffix}`
+)))
+
+copyFileArray('src', [
+  'options',
+  'popup',
+], '.html').then(() => console.log('html copy done'))
 
 esbuild.build({
   allowOverwrite: true,
   watch: {
-    onRebuild: () => console.log(`watch build ${buildCount++} done!`),
+    onRebuild: () => console.log('js build done')
   },
   bundle: true,
   entryPoints: [
