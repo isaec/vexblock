@@ -5,7 +5,9 @@ const [input] = process.argv.slice(2)
 const reg = {
   chunk: /(?<=^@)(.|\n)*?(?=\n@)/gm,
   indent: str => str.match(/(\s\s)/g).length,
+  isNotComment: str => !/^\s*?\/\//.test(str),
 }
+
 
 const lineObj = line => ({
   level: reg.indent(line),
@@ -28,7 +30,11 @@ readFile(input, 'utf8')
       const lines = chunk.split('\n')
       const chunkMap = {
         domain: lines[0],
-        lines: new Set(lines.slice(1).map(lineObj))
+        lines: new Set(
+          lines.slice(1)
+            .filter(reg.isNotComment)
+            .map(lineObj)
+        )
       }
       console.log(chunkMap)
     })
