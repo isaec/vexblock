@@ -31,6 +31,17 @@ readFile(input, 'utf8')
     })
 
     console.log(parsedMap)
-
+    //now, lets walk the map and parse it further
+    parsedMap.forEach((lines, domain) => {
+      const partialMap = new Map(),
+        finishedPartials = new Set()
+      lines.forEach(({ level, str }) => {
+        if(partialMap.has(level)) {
+          //store the old partial, its done
+          finishedPartials.add(partialMap.get(level))
+        }
+      })
+      console.log(partialBuf)
+    })
   })
   .catch(e => console.log(e))
