@@ -36,11 +36,14 @@ readFile(input, 'utf8')
       const partialMap = new Map(),
         finishedPartials = new Set()
       //walk over every line
-      lines.forEach(({ level, str }) => {
+      lines.forEach(({ level, str }, i, arr) => {
         if (partialMap.has(level)) {
-          //store the old partial, its done
-          console.log(partialMap.get(level), 'from', str)
-          finishedPartials.add(partialMap.get(level))
+          //test if we just dropped a scope
+          if (arr[i - 1].level <= level) {
+            //if we didnt, store the old partial, its done
+            console.log(partialMap.get(level), 'from', str)
+            finishedPartials.add(partialMap.get(level))
+          }
         }
         partialMap.set(level, `${level !== 1 ? partialMap.get(level - 1) : ''}${str}`)
       })
@@ -48,7 +51,6 @@ readFile(input, 'utf8')
       for (let i = partialMap.size; i >= 0; i--) {
         if (!finishedPartials.has(partialMap.get(i))) {
           finishedPartials.add(partialMap.get(i))
-          partialMap.delete(i)
           break
         }
       }
