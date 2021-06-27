@@ -1,11 +1,27 @@
 const esbuild = require('esbuild')
 const bLib = require('./buildLib')
 
+const envSettings = (
+  env => {
+    if (env === 'production') {
+      return {
+        minify: true,
+      }
+    }
+    return {
+      minify: false,
+      watch: {
+        onRebuild: () => console.log('js build done')
+      },
+    }
+  }
+)(process.env.NODE_ENV)
+
+console.log(envSettings, process.env.NODE_ENV)
+
 esbuild.build({
+  ...envSettings,
   allowOverwrite: true,
-  watch: {
-    onRebuild: () => console.log('js build done')
-  },
   bundle: true,
   entryPoints: [
     'background.js',

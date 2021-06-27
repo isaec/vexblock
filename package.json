@@ -4,8 +4,8 @@
   "description": "Block vexations across the web",
   "main": "",
   "scripts": {
-    "dev": "webpack --mode=development --watch",
-    "build": "webpack --mode=production"
+    "dev": "NODE_ENV=development node build",
+    "build": "NODE_ENV=production node build"
   },
   "repository": {
     "type": "git",
