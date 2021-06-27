@@ -9,4 +9,4 @@ esbuild.build({
     'popup',
   ].map(str => `src/${str}.js`),
   outdir: 'build'
-})
+}).catch(() => process.exit(1))
