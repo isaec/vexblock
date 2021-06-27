@@ -44,6 +44,7 @@ const syncDir = (from, to, append) => {
     ).catch(async err => {
       if(err.code === 'ENOENT') {
         await unlink(`${to}/${f}`)
+        console.log(`${to}/${f} was deleted`)
       } else {
         console.log(err)
       }
