@@ -22,19 +22,18 @@ readFile(input, 'utf8')
 @end
 `// this adds the eof to the file for easy parse
 
-
     const chunks = str.match(reg.chunk)
 
-    chunks.forEach((chunk, i) => {
+    chunks.forEach(chunk => {
       chunk = chunk.trim()
       const lines = chunk.split('\n')
       const chunkMap = {
         domain: lines[0],
-        lines: new Set(
+        lines: (
           lines.slice(1)
             .filter(reg.isNotComment)
             .map(lineObj)
-        )
+        ),
       }
       console.log(chunkMap)
     })
