@@ -30,18 +30,22 @@ readFile(input, 'utf8')
       ))
     })
 
-    console.log(parsedMap)
+    // console.log(parsedMap)
     //now, lets walk the map and parse it further
     parsedMap.forEach((lines, domain) => {
       const partialMap = new Map(),
         finishedPartials = new Set()
+      //walk over every line
       lines.forEach(({ level, str }) => {
-        if(partialMap.has(level)) {
+        if (partialMap.has(level)) {
           //store the old partial, its done
           finishedPartials.add(partialMap.get(level))
         }
+        partialMap.set(level, `${level !== 1 ? partialMap.get(level - 1) : ''}${str}`)
       })
-      console.log(partialBuf)
+      // the only valid partial still in the partial map is the highest indexed one
+      finishedPartials.add(partialMap.get(partialMap.size))
+      console.log(parsedMap.get(domain), '\n\n', partialMap, finishedPartials, '\n\n=====\n')
     })
   })
   .catch(e => console.log(e))

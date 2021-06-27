@@ -5,10 +5,10 @@
   .bt.bl.bb.bc-black-075.p12.pb6.fc-black-600.blr-sm.overflow-hidden
 
 @test
-  test 1
-
-  test 1
-  test 2
-  //test 3
-  test //4
-    test 5!
+  a
+    b
+    c
+    d
+      e
+      f
+      g
