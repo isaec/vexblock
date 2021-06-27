@@ -1,20 +1,6 @@
 const { readFile } = require('fs/promises')
 
 const [input] = process.argv.slice(2)
-
-const reg = {
-  chunk: /(?<=^@)(.|\n)*?(?=\n@)/gm,
-  indent: str => str.match(/(\s\s)/g).length,
-  //tests for comments or empty space
-  isValid: str => !/^((\s*?\/\/)|\s*$)/.test(str),
-}
-
-
-const lineObj = line => ({
-  level: reg.indent(line),
-  str: line.trim(),
-})
-
 console.log(`attempting to parse ${input}`)
 
 readFile(input, 'utf8')
@@ -23,7 +9,8 @@ readFile(input, 'utf8')
 @end
 `// this adds the eof to the file for easy parse
 
-    const chunks = str.match(reg.chunk)
+    //split the string into chunks, one domain per chunk, using @ symbol
+    const chunks = str.match(/(?<=^@)(.|\n)*?(?=\n@)/gm)
 
     chunks.forEach(chunk => {
       chunk = chunk.trim()
@@ -32,8 +19,13 @@ readFile(input, 'utf8')
         domain: lines[0],
         lines: (
           lines.slice(1)
-            .filter(reg.isValid)
-            .map(lineObj)
+            //check for empty lines and comments
+            .filter(str => !/^((\s*?\/\/)|\s*$)/.test(str))
+            .map(line => ({
+              //match for double spaces
+              level: line.match(/(\s\s)/g).length,
+              str: line.trim(),
+            }))
         ),
       }
       console.log(chunkMap)
