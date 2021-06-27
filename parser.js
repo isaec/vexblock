@@ -12,24 +12,25 @@ readFile(input, 'utf8')
     //split the string into chunks, one domain per chunk, using @ symbol
     const chunks = str.match(/(?<=^@)(.|\n)*?(?=\n@)/gm)
 
+    //store all the parsed chunks in one map
+    const parsedMap = new Map()
+
     chunks.forEach(chunk => {
       chunk = chunk.trim()
       const lines = chunk.split('\n')
-      const chunkMap = {
-        domain: lines[0],
-        lines: (
-          lines.slice(1)
-            //check for empty lines and comments
-            .filter(str => !/^((\s*?\/\/)|\s*$)/.test(str))
-            .map(line => ({
-              //match for double spaces
-              level: line.match(/(\s\s)/g).length,
-              str: line.trim(),
-            }))
-        ),
-      }
-      console.log(chunkMap)
+      parsedMap.set(lines[0], (
+        lines.slice(1)
+          //check for empty lines and comments
+          .filter(str => !/^((\s*?\/\/)|\s*$)/.test(str))
+          .map(line => ({
+            //match for double spaces
+            level: line.match(/(\s\s)/g).length,
+            str: line.trim(),
+          }))
+      ))
     })
+
+    console.log(parsedMap)
 
   })
   .catch(e => console.log(e))
