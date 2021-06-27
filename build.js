@@ -1,6 +1,6 @@
 const esbuild = require('esbuild')
 const Path = require('path')
-const { copyFile, readdir, mkdir } = require('fs/promises')
+const { copyFile, unlink, readdir, mkdir } = require('fs/promises')
 const { watch, mkdirSync } = require('fs')
 
 const mLog = e => {
@@ -11,7 +11,7 @@ try { mkdirSync('build') }
 catch (e) { mLog(e) }
 
 const copyDir = (from, to, append) => {
-  if(append) {
+  if (append) {
     from = `${from}/${append}`
     to = `${to}/${append}`
   }
@@ -22,6 +22,33 @@ const copyDir = (from, to, append) => {
       `${to}/${file}`
     ).catch(mLog)))
     console.log(`${from} copy done`)
+  })
+}
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const syncDir = (from, to, append) => {
+  if (append) {
+    from = `${from}/${append}`
+    to = `${to}/${append}`
+  }
+  const fsDebounce = new Set()
+  watch(from, async (e, f) => {
+    if (fsDebounce.has(f)) return
+    fsDebounce.add(f)
+    await sleep(100)
+    fsDebounce.delete(f)
+    await copyFile(
+      `${from}/${f}`,
+      `${to}/${f}`,
+    ).catch(async err => {
+      if(err.code === 'ENOENT') {
+        await unlink(`${to}/${f}`)
+      } else {
+        console.log(err)
+      }
+    })
+    console.log(`${f} was synced (${e})`)
   })
 }
 
@@ -53,17 +80,5 @@ esbuild.build({
 copyDir('browser', 'build')
 copyDir('browser', 'build', 'icons')
 
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-const fsDebounce = new Set()
-watch('browser', async (e, f) => {
-  if (fsDebounce.has(f)) return
-  fsDebounce.add(f)
-  await sleep(100)
-  fsDebounce.delete(f)
-  await copyFile(
-    `browser/${f}`,
-    `build/${f}`,
-  )
-  console.log(`${f} was synced (${e})`)
-})
+syncDir('browser', 'build')
+syncDir('browser', 'build', 'icons')
