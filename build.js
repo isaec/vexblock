@@ -42,7 +42,7 @@ const syncDir = (from, to, append) => {
       `${from}/${f}`,
       `${to}/${f}`,
     ).catch(async err => {
-      if(err.code === 'ENOENT') {
+      if (err.code === 'ENOENT') {
         await unlink(`${to}/${f}`)
         console.log(`${to}/${f} was deleted`)
       } else {
@@ -58,15 +58,17 @@ const mirrorDir = async (from, to, append) => {
   syncDir(from, to, append)
 }
 
-const copyFileArray = (prefix, arr, suffix = '') => Promise.all(arr.map(path => copyFile(
-  `${prefix}/${path}${suffix}`,
-  `build/${Path.basename(path)}${suffix}`
-)))
+const copyFileArray = (from, to, arr) => Promise.all(
+  arr.map(path => copyFile(
+    `${from}/${path}`,
+    `${to}/${Path.basename(path)}`
+  ))
+)
 
-copyFileArray('src', [
-  'options',
-  'popup',
-], '.html').then(() => console.log('html copy done'))
+copyFileArray('src', 'build', [
+  'options.html',
+  'popup.html',
+]).then(() => console.log('html copy done'))
 
 esbuild.build({
   allowOverwrite: true,
