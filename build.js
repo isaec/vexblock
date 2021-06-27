@@ -28,9 +28,17 @@ esbuild.build({
   outdir: 'build'
 }).catch(() => process.exit(1))
 
-watch('browser', (e, f) => {
-  copyFile(
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+const fsDebounce = new Set()
+watch('browser', async (e, f) => {
+  if (fsDebounce.has(f)) return
+  fsDebounce.add(f)
+  await sleep(100)
+  fsDebounce.delete(f)
+  await copyFile(
     `browser/${f}`,
     `build/${f}`
-  ).then(() => console.log(`${f} was synced`))
+  )
+  console.log(`${f} was synced`)
 })
