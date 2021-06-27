@@ -6,9 +6,11 @@
 
 @test
   a
-    b
-    c
-    d
-      e
-      f
-      g
+  b
+  c
+    e
+  d
+  g
+  h
+    i
+      j

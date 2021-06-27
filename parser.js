@@ -39,13 +39,20 @@ readFile(input, 'utf8')
       lines.forEach(({ level, str }) => {
         if (partialMap.has(level)) {
           //store the old partial, its done
+          console.log(partialMap.get(level), 'from', str)
           finishedPartials.add(partialMap.get(level))
         }
         partialMap.set(level, `${level !== 1 ? partialMap.get(level - 1) : ''}${str}`)
       })
-      // the only valid partial still in the partial map is the highest indexed one
-      finishedPartials.add(partialMap.get(partialMap.size))
-      console.log(parsedMap.get(domain), '\n\n', partialMap, finishedPartials, '\n\n=====\n')
+      // there may still be a valid partial, if so, its the highest indexed partial not in our set
+      for (let i = partialMap.size; i >= 0; i--) {
+        if (!finishedPartials.has(partialMap.get(i))) {
+          finishedPartials.add(partialMap.get(i))
+          partialMap.delete(i)
+          break
+        }
+      }
+      console.log('\n\n', partialMap, finishedPartials, '\n\n=====\n')
     })
   })
   .catch(e => console.log(e))
