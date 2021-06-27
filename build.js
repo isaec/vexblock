@@ -65,10 +65,39 @@ const copyFileArray = (from, to, arr) => Promise.all(
   ))
 )
 
+const syncFileArray = (from, to, arr) => {
+  arr.forEach(file => {
+    let debounce = false
+    watch(`${from}/${file}`, async (e, f) => {
+      if (debounce) return
+      debounce = true
+      await sleep(100)
+      debounce = false
+      await copyFile(
+        `${from}/${f}`,
+        `${to}/${f}`,
+      ).catch(async err => {
+        if (err.code === 'ENOENT') {
+          await unlink(`${to}/${f}`)
+          console.log(`${to}/${f} was deleted`)
+        } else {
+          console.log(err)
+        }
+      })
+      console.log(`${f} was synced (${e})`)
+    })
+  })
+}
+
 copyFileArray('src', 'build', [
   'options.html',
   'popup.html',
 ]).then(() => console.log('html copy done'))
+
+syncFileArray('src', 'build', [
+  'options.html',
+  'popup.html',
+])
 
 esbuild.build({
   allowOverwrite: true,
