@@ -2,6 +2,7 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
+  devtool: 'cheap-source-map',
   output: {
     path: `${__dirname}/build`,
     publicPath: '/build/',
