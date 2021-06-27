@@ -32,6 +32,7 @@ readFile(input, 'utf8')
 
     // console.log(parsedMap)
     //now, lets walk the map and parse it further
+    const scopedObj = {}
     parsedMap.forEach((lines, domain) => {
       const partialMap = new Map(),
         finishedPartials = new Set()
@@ -41,7 +42,6 @@ readFile(input, 'utf8')
           //test if we just dropped a scope
           if (arr[i - 1].level <= level) {
             //if we didnt, store the old partial, its done
-            console.log(partialMap.get(level), 'from', str)
             finishedPartials.add(partialMap.get(level))
           }
         }
@@ -54,7 +54,9 @@ readFile(input, 'utf8')
           break
         }
       }
-      console.log('\n\n', partialMap, finishedPartials, '\n\n=====\n')
+      scopedObj[domain] = [...finishedPartials].join(',')
     })
+
+    console.log(scopedObj)
   })
   .catch(e => console.log(e))
