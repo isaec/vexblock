@@ -63,7 +63,7 @@ const copyFileArray = (from, to, arr) => Promise.all(
     `${from}/${path}`,
     `${to}/${Path.basename(path)}`
   ))
-)
+).then(() => console.log(`${from}/[${arr.join(', ')}] copy done`))
 
 const syncFileArray = (from, to, arr) => {
   arr.forEach(file => {
@@ -89,12 +89,12 @@ const syncFileArray = (from, to, arr) => {
   })
 }
 
-copyFileArray('src', 'build', [
-  'options.html',
-  'popup.html',
-]).then(() => console.log('html copy done'))
+const mirrorFileArray = (from, to, arr) => {
+  copyFileArray(from, to, arr)
+  syncFileArray(from, to, arr)
+}
 
-syncFileArray('src', 'build', [
+mirrorFileArray('src', 'build', [
   'options.html',
   'popup.html',
 ])
