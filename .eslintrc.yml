@@ -17,6 +17,7 @@ globals:
     module: readonly,
     '__dirname': readonly,
     chrome: readonly,
+    process: readonly,
   }
 ignorePatterns:
   - "build"
