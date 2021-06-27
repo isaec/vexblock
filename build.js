@@ -2,14 +2,28 @@ const esbuild = require('esbuild')
 const Path = require('path')
 const { copyFile, readdir, mkdir } = require('fs/promises')
 const { watch, mkdirSync } = require('fs')
-const { EEXIST } = require('constants')
 
 const mLog = e => {
-  if (e.code !== 'EEXIST') console.log(e)
+  if (e.code !== 'EEXIST' && e.code !== 'EISDIR') console.log(e)
 }
 
 try { mkdirSync('build') }
 catch (e) { mLog(e) }
+
+const copyDir = (from, to, append) => {
+  if(append) {
+    from = `${from}/${append}`
+    to = `${to}/${append}`
+  }
+  readdir(from).then(async fArr => {
+    await mkdir(to, { recursive: true }).catch(mLog)
+    await Promise.all(fArr.map(file => copyFile(
+      `${from}/${file}`,
+      `${to}/${file}`
+    ).catch(mLog)))
+    console.log(`${from} copy done`)
+  })
+}
 
 const copyFileArray = (prefix, arr, suffix = '') => Promise.all(arr.map(path => copyFile(
   `${prefix}/${path}${suffix}`,
@@ -36,15 +50,8 @@ esbuild.build({
   outdir: 'build'
 }).catch(() => process.exit(1))
 
-
-readdir('browser/icons').then(async fArr => {
-  await mkdir('build/icons').catch(mLog)
-  await Promise.all(fArr.map(file => copyFile(
-    `browser/icons/${file}`,
-    `build/icons/${file}`
-  )))
-  console.log('initial browser copy done')
-})
+copyDir('browser', 'build')
+copyDir('browser', 'build', 'icons')
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
