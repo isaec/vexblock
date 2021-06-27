@@ -2,7 +2,6 @@ const HtmlWebPackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  devtool: 'cheap-source-map',
   output: {
     path: `${__dirname}/build`,
     publicPath: '/build/',
@@ -10,7 +9,6 @@ module.exports = {
   },
   context: `${__dirname}/src`,
   entry: {
-    background: 'background.js',
     foreground: 'foreground.js',
     options: 'options.js',
     popup: 'popup.js',
@@ -47,6 +45,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         '*.html',
+        'background.js',
         {
           from: 'browser',
           context: '..',

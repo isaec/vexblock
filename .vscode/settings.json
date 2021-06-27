@@ -2,5 +2,7 @@
     "cSpell.words": [
         "readonly",
         "vexblock"
-    ]
+    ],
+    "editor.detectIndentation": false,
+    "editor.tabSize": 2
 }
