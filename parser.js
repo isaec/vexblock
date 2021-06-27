@@ -5,7 +5,8 @@ const [input] = process.argv.slice(2)
 const reg = {
   chunk: /(?<=^@)(.|\n)*?(?=\n@)/gm,
   indent: str => str.match(/(\s\s)/g).length,
-  isNotComment: str => !/^\s*?\/\//.test(str),
+  //tests for comments or empty space
+  isValid: str => !/^((\s*?\/\/)|\s*$)/.test(str),
 }
 
 
@@ -31,7 +32,7 @@ readFile(input, 'utf8')
         domain: lines[0],
         lines: (
           lines.slice(1)
-            .filter(reg.isNotComment)
+            .filter(reg.isValid)
             .map(lineObj)
         ),
       }
