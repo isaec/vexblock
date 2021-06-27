@@ -53,6 +53,11 @@ const syncDir = (from, to, append) => {
   })
 }
 
+const mirrorDir = async (from, to, append) => {
+  copyDir(from, to, append)
+  syncDir(from, to, append)
+}
+
 const copyFileArray = (prefix, arr, suffix = '') => Promise.all(arr.map(path => copyFile(
   `${prefix}/${path}${suffix}`,
   `build/${Path.basename(path)}${suffix}`
@@ -78,8 +83,5 @@ esbuild.build({
   outdir: 'build'
 }).catch(() => process.exit(1))
 
-copyDir('browser', 'build')
-copyDir('browser', 'build', 'icons')
-
-syncDir('browser', 'build')
-syncDir('browser', 'build', 'icons')
+mirrorDir('browser', 'build')
+mirrorDir('browser', 'build', 'icons')
