@@ -3,6 +3,7 @@
       "esbuild",
       "outdir",
       "readonly",
+      "vexa",
       "vexblock"
     ],
     "editor.detectIndentation": false,

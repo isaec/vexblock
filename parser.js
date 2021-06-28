@@ -4,11 +4,27 @@ const Path = require('path')
 const [input] = process.argv.slice(2)
 console.log(`attempting to parse ${input}`)
 
+const macroNames = new Set([
+  'class'
+])
+
 readFile(input, 'utf8')
   .then(str => {
     str = `${str}
 @end
 `// this adds the eof to the file for easy parse
+
+    //macro step
+
+    //match the entire macro, for every macro
+    str.match(/&\w*?\(.*?\)/sgm).forEach(mStr => {
+      //match the macro name
+      const fnName = mStr.match(/(?<=&).*?(?=\()/)
+      console.log(macroNames.has(fnName[0]))
+    })
+
+    //end macro step
+
 
     //split the string into chunks, one domain per chunk, using @ symbol
     const chunks = str.match(/(?<=^@)(.|\n)*?(?=\n@)/gm)
