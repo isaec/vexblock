@@ -27,7 +27,9 @@ readFile(input, 'utf8')
       const fnName = mStr.match(/(?<=&).*?(?=\()/)[0]
       if (!macros.has(fnName)) throw new Error('unknown macro function')
       const param = mStr.match(/(?<=\().*?(?=\))/sm)[0]
-      console.log(macros.get(fnName)(param))
+      //inject the new value
+      //if the same macro exists twice, this will get both
+      str = str.replace(mStr, macros.get(fnName)(param))
     })
 
     //end macro step
