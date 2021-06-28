@@ -4,9 +4,13 @@ const Path = require('path')
 const [input] = process.argv.slice(2)
 console.log(`attempting to parse ${input}`)
 
-const macroNames = new Set([
-  'class'
-])
+const macros = new Map(Object.entries({
+  class: (str => `.${str
+    .split(/[\n\r\s]+/g)
+    .filter(s => s !== '')
+    .join('.')}`),
+}))
+
 
 readFile(input, 'utf8')
   .then(str => {
@@ -17,10 +21,13 @@ readFile(input, 'utf8')
     //macro step
 
     //match the entire macro, for every macro
-    str.match(/&\w*?\(.*?\)/sgm).forEach(mStr => {
+    const macroArr = str.match(/&\w*?\(.*?\)/sgm) || []
+    macroArr.forEach(mStr => {
       //match the macro name
-      const fnName = mStr.match(/(?<=&).*?(?=\()/)
-      console.log(macroNames.has(fnName[0]))
+      const fnName = mStr.match(/(?<=&).*?(?=\()/)[0]
+      if (!macros.has(fnName)) throw new Error('unknown macro function')
+      const param = mStr.match(/(?<=\().*?(?=\))/sm)[0]
+      console.log(macros.get(fnName)(param))
     })
 
     //end macro step
