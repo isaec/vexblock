@@ -55,7 +55,9 @@ readFile(input, 'utf8')
           break
         }
       }
-      scopedObj[domain] = Array.from(finishedPartials).join(',')
+      scopedObj[domain] = {
+        default: Array.from(finishedPartials).join(',')
+      }
     })
 
     console.log(scopedObj)
