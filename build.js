@@ -17,8 +17,6 @@ const envSettings = (
   }
 )(process.env.NODE_ENV)
 
-console.log(envSettings, process.env.NODE_ENV)
-
 esbuild.build({
   ...envSettings,
   allowOverwrite: true,
@@ -36,6 +34,7 @@ bLib.ensureDir('build')
 
 bLib.Dir.mirror('browser', 'build')
 bLib.Dir.mirror('browser', 'build', 'icons')
+bLib.Dir.mirror('config', 'build/config')
 
 bLib.FileArray.mirror('src', 'build', [
   'options.html',
