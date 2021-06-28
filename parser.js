@@ -1,4 +1,5 @@
-const { readFile } = require('fs/promises')
+const { readFile, writeFile } = require('fs/promises')
+const Path = require('path')
 
 const [input] = process.argv.slice(2)
 console.log(`attempting to parse ${input}`)
@@ -58,5 +59,8 @@ readFile(input, 'utf8')
     })
 
     console.log(scopedObj)
+    writeFile(`${Path.dirname(input)}/vexa.json`, JSON.stringify(scopedObj)).then(
+      () => console.log('all done!')
+    )
   })
   .catch(e => console.log(e))
