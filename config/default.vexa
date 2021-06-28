@@ -4,6 +4,10 @@
     component
     meter-wall can-animate hide-on-mobile roadblock
   )
+  &comment(
+    multiline comments are possible,
+    thanks to macros
+  )
 
 @stackoverflow.com
   .bt.bl.bb.bc-black-075.p12.pb6.fc-black-600.blr-sm.overflow-hidden

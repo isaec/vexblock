@@ -9,6 +9,7 @@ const macros = new Map(Object.entries({
     .split(/[\n\r\s]+/g)
     .filter(s => s !== '')
     .join('.')}`),
+  comment: (() => ''),
 }))
 
 
