@@ -1,4 +1,8 @@
 console.log('foreground, awaiting task')
 chrome.runtime.onMessage.addListener((task) => {
-  console.log(task)
+  document.querySelectorAll(task.default)
+    .forEach(
+      el => { el.remove() }
+    )
+  console.log('task is done')
 })
