@@ -16,7 +16,7 @@ const validSubDomain = url => (
     .find(sub => targets.has(sub))
 )
 
-chrome.webNavigation.onCompleted.addListener(async ({tabId, url}) => {
+chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
   await ensureTargets()
   const domain = validSubDomain(url)
   console.log(targets, domain)
