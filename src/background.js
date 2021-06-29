@@ -1,12 +1,26 @@
 let targets
 
+
+const validSubDomain = url => (
+  new URL(url).hostname
+    .split('.')
+    .map((sub, i, arr) => (
+      arr
+        .slice(i)
+        .join('.')
+    ))
+    .slice(0, -1)
+    .find(sub => targets.has(sub))
+)
+
+
 const onUpdated = (tabId, changeInfo, { url }) => {
-  const domain = new URL(url).hostname
+  const domain = validSubDomain(url)
   console.log(targets, domain)
   if (
-    changeInfo.status === 'complete'
+    domain !== undefined
+    && changeInfo.status === 'complete'
     && /^http/.test(url)
-    && targets.has(domain)
   ) {
     chrome.scripting.executeScript({
       target: { tabId },
