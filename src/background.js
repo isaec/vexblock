@@ -7,11 +7,12 @@ chrome.runtime.onInstalled.addListener(async () => {
 })
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url, /*...tab*/ }) => {
+  const domain = url.match(/(?<=\/\/).*?(?=\/)/)[0]
   if (
     changeInfo.status === 'complete'
     && /^http/.test(url)
     && targets !== undefined
-    && targets.has(url.match(/(?<=\/\/).*?(?=\/)/)[0])
+    && targets.has(domain)
   ) {
     chrome.scripting.executeScript({
       target: { tabId },
@@ -19,7 +20,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url, /*...tab*/ }) => {
     })
       .then(() => {
         console.log('injected.')
-        chrome.tabs.sendMessage(tabId, 'browser barrier breached')
+        chrome.tabs.sendMessage(tabId, targets.get(domain))
         console.log('task assigned.')
       })
       .catch(e => console.log(e))

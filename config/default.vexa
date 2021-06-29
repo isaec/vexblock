@@ -10,4 +10,4 @@
   )
 
 @stackoverflow.com
-  .bt.bl.bb.bc-black-075.p12.pb6.fc-black-600.blr-sm.overflow-hidden
+  &class(js-freemium-cta ps-relative)
