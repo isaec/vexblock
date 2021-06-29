@@ -1,5 +1,8 @@
 let targets
 
+const ensureTargets = async () => {
+  targets = new Map(Object.entries(await (await fetch('config/vexa.json')).json()))
+}
 
 const validSubDomain = url => (
   new URL(url).hostname
@@ -13,8 +16,8 @@ const validSubDomain = url => (
     .find(sub => targets.has(sub))
 )
 
-
-const onCompleted = ({tabId, url}) => {
+chrome.webNavigation.onCompleted.addListener(async ({tabId, url}) => {
+  await ensureTargets()
   const domain = validSubDomain(url)
   console.log(targets, domain)
   if (
@@ -32,13 +35,9 @@ const onCompleted = ({tabId, url}) => {
       })
       .catch(e => console.log(e))
   }
-}
-
+})
 
 chrome.runtime.onInstalled.addListener(async () => {
-  console.log('reading vexa.json...')
-  const resp = await (await fetch('config/vexa.json')).json()
-  targets = new Map(Object.entries(resp))
-  chrome.webNavigation.onCompleted.addListener(onCompleted)
+  console.log('alive')
 })
 
