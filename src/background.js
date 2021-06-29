@@ -1,18 +1,11 @@
 let targets
 
-chrome.runtime.onInstalled.addListener(async () => {
-  console.log('reading vexa.json...')
-  const resp = await (await fetch('config/vexa.json')).json()
-  targets = new Map(Object.entries(resp))
-})
-
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url }) => {
+const onUpdated = (tabId, changeInfo, { url }) => {
   const domain = new URL(url).hostname
   console.log(targets, domain)
   if (
     changeInfo.status === 'complete'
     && /^http/.test(url)
-    && targets !== undefined
     && targets.has(domain)
   ) {
     chrome.scripting.executeScript({
@@ -26,4 +19,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url }) => {
       })
       .catch(e => console.log(e))
   }
+}
+
+
+chrome.runtime.onInstalled.addListener(async () => {
+  console.log('reading vexa.json...')
+  const resp = await (await fetch('config/vexa.json')).json()
+  targets = new Map(Object.entries(resp))
+  chrome.tabs.onUpdated.addListener(onUpdated)
 })
+
