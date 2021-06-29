@@ -11,3 +11,6 @@
 
 @stackoverflow.com
   &class(js-freemium-cta ps-relative)
+
+@nationalgeographic.com
+  div [data-track-event_name="creative click"]

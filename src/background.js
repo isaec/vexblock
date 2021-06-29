@@ -6,8 +6,9 @@ chrome.runtime.onInstalled.addListener(async () => {
   targets = new Map(Object.entries(resp))
 })
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url, /*...tab*/ }) => {
-  const domain = url.match(/(?<=\/\/).*?(?=\/)/)[0]
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url }) => {
+  const domain = new URL(url).hostname
+  console.log(targets, domain)
   if (
     changeInfo.status === 'complete'
     && /^http/.test(url)
