@@ -1,5 +1,9 @@
-chrome.runtime.onInstalled.addListener(() => {
-  console.log('woot')
+const targets = new Map()
+
+chrome.runtime.onInstalled.addListener(async () => {
+  console.log('reading vexa.json...')
+  const resp = await (await fetch('config/vexa.json')).json()
+  console.log(resp)
 })
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, { url, /*...tab*/ }) => {
