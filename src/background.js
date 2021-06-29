@@ -14,12 +14,11 @@ const validSubDomain = url => (
 )
 
 
-const onUpdated = (tabId, changeInfo, { url }) => {
+const onCompleted = ({tabId, url}) => {
   const domain = validSubDomain(url)
   console.log(targets, domain)
   if (
     domain !== undefined
-    && changeInfo.status === 'complete'
     && /^http/.test(url)
   ) {
     chrome.scripting.executeScript({
@@ -40,6 +39,6 @@ chrome.runtime.onInstalled.addListener(async () => {
   console.log('reading vexa.json...')
   const resp = await (await fetch('config/vexa.json')).json()
   targets = new Map(Object.entries(resp))
-  chrome.tabs.onUpdated.addListener(onUpdated)
+  chrome.webNavigation.onCompleted.addListener(onCompleted)
 })
 
