@@ -18,3 +18,13 @@ on load
     multiline comments are possible,
     thanks to macros
   )
+
+@test
+  test
+  test2
+on load
+  test
+    !
+    ?
+on update
+  more test

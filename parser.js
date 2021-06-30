@@ -12,6 +12,10 @@ const macros = new Map(Object.entries({
   comment: (() => ''),
 }))
 
+const directives = new Set([
+  'load',
+  'update',
+])
 
 const parsedToList = lines => {
   const partialMap = new Map(),
@@ -82,12 +86,35 @@ readFile(input, 'utf8')
       ))
     })
 
+    const parsedSections = new Map()
+
+    parsedMap.forEach((lines, domain) => {
+      const sectionMap = new Map()
+      let directive = 'css'
+      lines.forEach(line => {
+        if (/^on/m.test(line.str) && line.level === 0) {
+          // we have a directive, lets get the name
+          directive = line.str.match(/(?<=^on\s)[^(\n]*/m)[0]
+          if (!directives.has(directive)) throw new Error(`illegal directive, on "${directive}" is not valid`)
+        } else {
+          if(sectionMap.has(directive)) {
+            sectionMap.set(directive, [...sectionMap.get(directive), line])
+          } else {
+            sectionMap.set(directive, [line])
+          }
+        }
+      })
+      parsedSections.set(domain, sectionMap)
+    })
+
+    console.log(parsedSections.get('test'))
+
     // console.log(parsedMap)
     //now, lets walk the map and parse it further
     const scopedObj = {}
     parsedMap.forEach((lines, domain) => {
       scopedObj[domain] = {
-        default: parsedToList(lines)
+        css: parsedToList(lines)
       }
     })
 
