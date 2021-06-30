@@ -18,5 +18,5 @@ readFile(input, 'utf8')
       .map(str => str.trim())
       .join('\n\n')
 
-    console.log(sorted)
+    writeFile(input, sorted)
   })
