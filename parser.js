@@ -107,15 +107,14 @@ readFile(input, 'utf8')
       parsedSections.set(domain, sectionMap)
     })
 
-    console.log(parsedSections.get('test'))
 
-    // console.log(parsedMap)
-    //now, lets walk the map and parse it further
+    //now, lets walk the sections and parse it further
     const scopedObj = {}
-    parsedMap.forEach((lines, domain) => {
-      scopedObj[domain] = {
-        css: parsedToList(lines)
-      }
+    parsedSections.forEach((sections, domain) => {
+      scopedObj[domain] = {}
+      sections.forEach((parsedMapSection, directive) => {
+        scopedObj[domain][directive] = parsedToList(parsedMapSection)
+      })
     })
 
     console.log(scopedObj)
