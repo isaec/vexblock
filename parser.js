@@ -51,7 +51,7 @@ readFile(input, 'utf8')
           .filter(str => !/^((\s*?\/\/)|\s*$)/.test(str))
           .map(line => ({
             //match for double spaces
-            level: line.match(/(\s\s)/g).length,
+            level: (line.match(/(\s\s)/g) || []).length,
             str: line.trim(),
           }))
       ))
