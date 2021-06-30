@@ -1,5 +1,4 @@
 @time.com
-
   &class(
     component
     meter-wall can-animate hide-on-mobile roadblock

@@ -13,9 +13,10 @@ readFile(input, 'utf8')
 @end
 `// this adds the eof to the file for easy parse
 
-    const sorted = Array.from(str.matchAll(/(?<=^@)(.|\n)*?(?=\n@)/gm), m => m[0])
+    const sorted = Array.from(str.matchAll(/^@(.|\n)*?(?=\n@)/gm), m => m[0])
       .sort((a, b) => getName(a).localeCompare(getName(b)))
-      .join('\n')
+      .map(str => str.trim())
+      .join('\n\n')
 
     console.log(sorted)
   })
