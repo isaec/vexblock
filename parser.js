@@ -13,6 +13,31 @@ const macros = new Map(Object.entries({
 }))
 
 
+const parsedToList = lines => {
+  const partialMap = new Map(),
+    finishedPartials = new Set()
+  //walk over every line
+  lines.forEach(({ level, str }, i, arr) => {
+    if (partialMap.has(level)) {
+      //test if we just dropped a scope
+      if (arr[i - 1].level <= level) {
+        //if we didnt, store the old partial, its done
+        finishedPartials.add(partialMap.get(level))
+      }
+    }
+    partialMap.set(level, `${level !== 1 ? partialMap.get(level - 1) : ''}${str}`)
+  })
+  // there may still be a valid partial, if so, its the highest indexed partial not in our set
+  for (let i = partialMap.size; i >= 0; i--) {
+    if (!finishedPartials.has(partialMap.get(i))) {
+      finishedPartials.add(partialMap.get(i))
+      break
+    }
+  }
+  return Array.from(finishedPartials).join(',')
+}
+
+
 readFile(input, 'utf8')
   .then(str => {
     str = `${str}
@@ -61,28 +86,8 @@ readFile(input, 'utf8')
     //now, lets walk the map and parse it further
     const scopedObj = {}
     parsedMap.forEach((lines, domain) => {
-      const partialMap = new Map(),
-        finishedPartials = new Set()
-      //walk over every line
-      lines.forEach(({ level, str }, i, arr) => {
-        if (partialMap.has(level)) {
-          //test if we just dropped a scope
-          if (arr[i - 1].level <= level) {
-            //if we didnt, store the old partial, its done
-            finishedPartials.add(partialMap.get(level))
-          }
-        }
-        partialMap.set(level, `${level !== 1 ? partialMap.get(level - 1) : ''}${str}`)
-      })
-      // there may still be a valid partial, if so, its the highest indexed partial not in our set
-      for (let i = partialMap.size; i >= 0; i--) {
-        if (!finishedPartials.has(partialMap.get(i))) {
-          finishedPartials.add(partialMap.get(i))
-          break
-        }
-      }
       scopedObj[domain] = {
-        default: Array.from(finishedPartials).join(',')
+        default: parsedToList(lines)
       }
     })
 

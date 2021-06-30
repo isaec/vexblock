@@ -2,7 +2,7 @@
   div [data-track-event_name="creative click"]
 
 @regex101.com
-on update(1)
+on update
   &class(_3Brs_ _2C1Ky)
 
 @stackoverflow.com
