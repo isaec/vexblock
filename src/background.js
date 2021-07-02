@@ -36,21 +36,8 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
         }
       })
     }
-    if (target.load || target.update) {
-      chrome.scripting.executeScript({
-        target: { tabId },
-        files: ['./foreground.js'],
-      })
-        .then(() => {
-          console.log('injected.')
-          chrome.tabs.sendMessage(tabId, {
-            css: undefined,
-            ...target
-          })
-          console.log('task assigned.')
-        })
-        .catch(e => console.error(e))
-    }
+
+    //to eventually use on change ect, use args for script injection
   }
 })
 
