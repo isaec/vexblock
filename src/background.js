@@ -29,7 +29,7 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
 
     if (target.css) {
       chrome.scripting.insertCSS({
-        css: '.s-prose.js-post-body:not(#foo) { background-color: "red"; }',
+        css: `${target.css} { display: none; }`,
         origin: 'USER',
         target: {
           tabId
