@@ -5,6 +5,9 @@
 on update
   &class(_3Brs_ _2C1Ky)
 
+@speedtest.net
+  &class(content-devices pure-g)
+
 @stackoverflow.com
 on load
   &class(js-freemium-cta ps-relative)
@@ -18,13 +21,3 @@ on load
     multiline comments are possible,
     thanks to macros
   )
-
-@test
-  test
-  test2
-on load
-  test
-    !
-    ?
-on update
-  more test
