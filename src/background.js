@@ -2,7 +2,7 @@
 let targets
 
 const ensureTargets = async () => {
-  targets = new Map(Object.entries(await (await fetch('config/vexa.json')).json()))
+  if(!targets) targets = new Map(Object.entries(await (await fetch('config/vexa.json')).json()))
 }
 
 const validSubDomain = url => (
@@ -20,7 +20,6 @@ const validSubDomain = url => (
 chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
   await ensureTargets()
   const domain = validSubDomain(url)
-  console.log(targets, domain)
   if (
     domain !== undefined
     && /^http/.test(url)
