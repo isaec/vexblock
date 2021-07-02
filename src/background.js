@@ -29,7 +29,7 @@ chrome.webNavigation.onCommitted.addListener(async ({ tabId, url }) => {
 
     if (target.css) {
       chrome.scripting.insertCSS({
-        css: `${target.css} { display: none; }`,
+        css: `${target.css} { display: none !important; }`,
         origin: 'AUTHOR',
         target: {
           tabId
