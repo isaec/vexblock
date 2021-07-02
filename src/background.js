@@ -17,7 +17,7 @@ const validSubDomain = url => (
     .find(sub => targets.has(sub))
 )
 
-chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
+chrome.webNavigation.onCommitted.addListener(async ({ tabId, url }) => {
   await ensureTargets()
   const domain = validSubDomain(url)
   if (
@@ -30,7 +30,7 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
     if (target.css) {
       chrome.scripting.insertCSS({
         css: `${target.css} { display: none; }`,
-        origin: 'USER',
+        origin: 'AUTHOR',
         target: {
           tabId
         }
