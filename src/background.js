@@ -35,10 +35,6 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
           tabId
         }
       })
-        .then(() => {
-          console.log('injected css.')
-        })
-        .catch(e => console.error(e))
     }
     if (target.load || target.update) {
       chrome.scripting.executeScript({
