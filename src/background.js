@@ -2,7 +2,7 @@
 let targets
 
 const ensureTargets = async () => {
-  if(!targets) targets = new Map(Object.entries(await (await fetch('config/vexa.json')).json()))
+  if (!targets) targets = new Map(Object.entries(await (await fetch('config/vexa.json')).json()))
 }
 
 const validSubDomain = url => (
@@ -28,7 +28,17 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
     const target = targets.get(domain)
 
     if (target.css) {
-      // css injection goes here
+      chrome.scripting.insertCSS({
+        css: '.s-prose.js-post-body:not(#foo) { background-color: "red"; }',
+        origin: 'USER',
+        target: {
+          tabId
+        }
+      })
+        .then(() => {
+          console.log('injected css.')
+        })
+        .catch(e => console.error(e))
     }
     if (target.load || target.update) {
       chrome.scripting.executeScript({
