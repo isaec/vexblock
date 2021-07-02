@@ -1,3 +1,4 @@
+// service worker!
 let targets
 
 const ensureTargets = async () => {
@@ -24,16 +25,27 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
     domain !== undefined
     && /^http/.test(url)
   ) {
-    chrome.scripting.executeScript({
-      target: { tabId },
-      files: ['./foreground.js'],
-    })
-      .then(() => {
-        console.log('injected.')
-        chrome.tabs.sendMessage(tabId, targets.get(domain))
-        console.log('task assigned.')
+
+    const target = targets.get(domain)
+
+    if (target.css) {
+      // css injection goes here
+    }
+    if (target.load) {
+      chrome.scripting.executeScript({
+        target: { tabId },
+        files: ['./foreground.js'],
       })
-      .catch(e => console.log(e))
+        .then(() => {
+          console.log('injected.')
+          chrome.tabs.sendMessage(tabId, target.load)
+          console.log('task assigned.')
+        })
+        .catch(e => console.error(e))
+    }
+    if (target.update) {
+      console.log('update is not yet supported')
+    }
   }
 })
 
