@@ -31,20 +31,20 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
     if (target.css) {
       // css injection goes here
     }
-    if (target.load) {
+    if (target.load || target.update) {
       chrome.scripting.executeScript({
         target: { tabId },
         files: ['./foreground.js'],
       })
         .then(() => {
           console.log('injected.')
-          chrome.tabs.sendMessage(tabId, target.load)
+          chrome.tabs.sendMessage(tabId, {
+            css: undefined,
+            ...target
+          })
           console.log('task assigned.')
         })
         .catch(e => console.error(e))
-    }
-    if (target.update) {
-      console.log('update is not yet supported')
     }
   }
 })
@@ -52,4 +52,3 @@ chrome.webNavigation.onCompleted.addListener(async ({ tabId, url }) => {
 chrome.runtime.onInstalled.addListener(async () => {
   console.log('alive')
 })
-
