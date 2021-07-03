@@ -21,6 +21,10 @@ const Editor = () => {
         /^\s*?\/\/.*/gm, //comments
         color('base01')
       )
+      .replace(
+        /(?<name>&amp;\w*?\()(?<arg>.*?)\)/gms, //macros
+        color('yellow', `$<name>${color('green', '$<arg>')})`)
+      )
   }), [content])
 
   return <div>

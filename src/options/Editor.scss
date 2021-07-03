@@ -46,12 +46,10 @@ $colors: (
   background-color: map.get($colors, 'base03');
   & code {
     color: map.get($colors, 'base3');
-    & > span {
-      @each $color, $hex in $colors {
-        &.#{$color} {
-          color: $hex;
-        }
-      }
+  }
+  @each $color, $hex in $colors {
+    & span.#{$color} {
+      color: $hex;
     }
   }
 }
