@@ -1,5 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './popup/App'
+
+const App = () => <div
+  className='App'
+>lol</div>
 
 ReactDOM.render(<App />, document.querySelector('#root'))
