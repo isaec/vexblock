@@ -6,6 +6,7 @@ const sanitize = str => {
   temp.textContent = str
   return temp.innerHTML
 }
+const color = (code, str = '$&') => `<span class=${code}>${str}</span>`
 
 const Editor = () => {
 
@@ -14,10 +15,11 @@ const Editor = () => {
     __html: sanitize(content)
       .replace(
         /^(@)(?<domain>[^\s]*)/gm, //domains
-        '<span class="base01">@</span><span class="blue">$<domain></span>')
+        `${color('base01', '@')}${color('blue', '$<domain>')}`
+      )
       .replace(
         /^\s*?\/\/.*/gm, //comments
-        '<span class="base01">$&</span>'
+        color('base01')
       )
   }), [content])
 
