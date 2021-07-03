@@ -45,7 +45,7 @@ $colors: (
 #highlight {
   background-color: map.get($colors, 'base03');
   & code {
-    color: map.get($colors, 'base3');
+    color: map.get($colors, 'base2');
   }
   @each $color, $hex in $colors {
     & span.#{$color} {
