@@ -2,8 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './options/options.scss'
 
-const App = () => <div
-  className='App'
->lmao</div>
+import Editor from './options/Editor'
+
+const App = () => <div>
+  <Editor></Editor>
+</div>
 
 ReactDOM.render(<App />, document.querySelector('#root'))
