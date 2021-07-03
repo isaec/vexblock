@@ -13,8 +13,12 @@ const Editor = () => {
   const highlighted = useMemo(() => ({
     __html: sanitize(content)
       .replace(
-        /^(@)(?<domain>[^\s]*)/gm,
+        /^(@)(?<domain>[^\s]*)/gm, //domains
         '<span class="base01">@</span><span class="blue">$<domain></span>')
+      .replace(
+        /^\s*?\/\/.*/gm, //comments
+        '<span class="base01">$&</span>'
+      )
   }), [content])
 
   return <div>
