@@ -4,6 +4,7 @@
   "description": "Block vexations across the web",
   "main": "",
   "scripts": {
+    "host": "npx http-server build -p 4848",
     "dev": "NODE_ENV=development node build",
     "build": "NODE_ENV=production node build"
   },
