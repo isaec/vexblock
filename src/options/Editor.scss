@@ -1,3 +1,5 @@
+@use "sass:map";
+
 textarea#edit, #highlight {
   margin: 10px;
   padding: 10px;
@@ -22,14 +24,14 @@ textarea#edit, #highlight, #highlight * {
 
 //solarized
 $colors: (
-  'base03 ' : #002b36,
-  'base02 ' : #073642,
-  'base01 ' : #586e75,
-  'base00 ' : #657b83,
-  'base0  ' : #839496,
-  'base1  ' : #93a1a1,
-  'base2  ' : #eee8d5,
-  'base3  ' : #fdf6e3,
+  'base03'  : #002b36,
+  'base02'  : #073642,
+  'base01'  : #586e75,
+  'base00'  : #657b83,
+  'base0'   : #839496,
+  'base1'   : #93a1a1,
+  'base2'   : #eee8d5,
+  'base3'   : #fdf6e3,
   'yellow'  : #b58900,
   'orange'  : #cb4b16,
   'red'     : #dc322f,
@@ -40,10 +42,16 @@ $colors: (
   'green'   : #859900,
 );
 
-#highlight * > span {
-  @each $color, $hex in $colors {
-    &.#{$color} {
-      color: $hex;
+#highlight {
+  background-color: map.get($colors, 'base03');
+  & code {
+    color: map.get($colors, 'base3');
+    & > span {
+      @each $color, $hex in $colors {
+        &.#{$color} {
+          color: $hex;
+        }
+      }
     }
   }
 }

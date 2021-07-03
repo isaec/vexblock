@@ -14,7 +14,7 @@ const Editor = () => {
     __html: sanitize(content)
       .replace(
         /^(@)(?<domain>[^\s]*)/gm,
-        '<span class="yellow">@</span><span class="cyan">$<domain></span>')
+        '<span class="base01">@</span><span class="blue">$<domain></span>')
   }), [content])
 
   return <div>
