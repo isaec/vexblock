@@ -1,4 +1,5 @@
 const esbuild = require('esbuild')
+const { sassPlugin } = require('esbuild-sass-plugin')
 const bLib = require('./buildLib')
 
 const envSettings = (
@@ -27,7 +28,8 @@ esbuild.build({
     'options.jsx',
     'popup.jsx'
   ].map(str => `src/${str}`),
-  outdir: 'build'
+  outdir: 'build',
+  plugins: [sassPlugin({cache: true})],
 }).catch(() => process.exit(1))
 
 bLib.ensureDir('build')

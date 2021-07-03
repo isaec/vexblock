@@ -19,6 +19,7 @@
   "homepage": "https://github.com/isaec/vexblock#readme",
   "dependencies": {
     "esbuild": "^0.12.9",
+    "esbuild-sass-plugin": "^1.4.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
