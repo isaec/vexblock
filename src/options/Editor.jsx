@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './Editor.scss'
 
 const Editor = () => {
 
@@ -6,6 +7,7 @@ const Editor = () => {
 
   return <div>
     <textarea
+      id='edit'
       onChange={e => setContent(e.target.value)}
     >{content}</textarea>
     <pre id='highlight' aria-hidden='true'>

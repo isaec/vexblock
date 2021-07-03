@@ -1,0 +1,21 @@
+textarea#edit, #highlight {
+  margin: 10px;
+  padding: 10px;
+  border: 0;
+  width: calc(100% - 32px);
+  height: 150px;
+  overflow-x: auto;
+  overflow-y: scroll;
+  white-space: nowrap;
+  resize: none;
+}
+
+#highlight, #highlight * {
+  user-select: none;
+}
+
+textarea#edit, #highlight, #highlight * {
+  font-size: 12pt;
+  font-family: monospace;
+  line-height: 20pt;
+}
