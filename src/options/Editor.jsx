@@ -15,7 +15,7 @@ const Editor = () => {
     __html: sanitize(content)
       .replace(
         /^(@)(?<domain>[^\s]*)/gm, //domains
-        `${color('base01', '@')}${color('blue', '$<domain>')}`
+        `${color('magenta', '@')}${color('blue', '$<domain>')}`
       )
       .replace(
         /^\s*?\/\/.*/gm, //comments
@@ -24,6 +24,10 @@ const Editor = () => {
       .replace(
         /(?<name>&amp;\w*?\()(?<arg>.*?)\)/gms, //macros
         color('yellow', `$<name>${color('green', '$<arg>')})`)
+      )
+      .replace( //directives
+        /^(on\s)(?<directive>\w*)/gm,
+        `${color('violet', 'on')} ${color('cyan', '$<directive>')}`
       )
   }), [content])
 
