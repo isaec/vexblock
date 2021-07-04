@@ -1,6 +1,19 @@
 @use "sass:map";
 
+.Editor {
+  display: grid;
+}
+
+textarea#edit {
+  z-index: 1;
+}
+
+#highlight {
+  z-index: 0;
+}
+
 textarea#edit, #highlight {
+  grid-area: 1 / 1 / 2 / 2;
   margin: 10px;
   padding: 10px;
   border: 0;

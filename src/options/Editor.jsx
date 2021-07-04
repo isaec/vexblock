@@ -31,7 +31,9 @@ const Editor = () => {
       )
   }), [content])
 
-  return <div>
+  return <div
+    className='Editor'
+  >
     <textarea
       id='edit'
       onChange={e => setContent(e.target.value)}
