@@ -4,14 +4,6 @@
   display: grid;
 }
 
-textarea#edit {
-  z-index: 1;
-}
-
-#highlight {
-  z-index: 0;
-}
-
 textarea#edit, #highlight {
   grid-area: 1 / 1 / 2 / 2;
   margin: 10px;
@@ -54,6 +46,17 @@ $colors: (
   'cyan'    : #2aa198,
   'green'   : #859900,
 );
+
+textarea#edit {
+  color: transparent;
+  background: transparent;
+  caret-color: map.get($colors, 'base00');
+  z-index: 1;
+}
+
+#highlight {
+  z-index: 0;
+}
 
 #highlight {
   background-color: map.get($colors, 'base03');
