@@ -29,6 +29,7 @@ const Editor = () => {
         /^(on\s)(?<directive>\w*)/gm,
         `${color('violet', 'on')} ${color('cyan', '$<directive>')}`
       )
+      + ' '
   }), [content])
 
   return <div
