@@ -16,7 +16,7 @@
 textarea#edit, #highlight {
   grid-area: 1 / 1 / 4 / 2;
   margin: 0px;
-  padding: 10px;
+  padding: 20px;
   border: 0;
   overflow: visible;
   white-space: pre;
@@ -58,6 +58,10 @@ textarea#edit {
   background: transparent;
   caret-color: map.get($colors, 'base00');
   z-index: 1;
+  &::selection {
+    color: map.get($colors, 'base1');
+    background-color: map.get($colors, 'base02');
+  }
 }
 
 #highlight {
