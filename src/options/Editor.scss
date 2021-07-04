@@ -1,19 +1,25 @@
 @use "sass:map";
 
 .Editor {
+  overflow: scroll;
+  position: relative;
+  max-height: 500px;
+  max-width: 100%;
+}
+
+.EditorScroll {
   display: grid;
+  height: 350px;
+  background-color: blue;
 }
 
 textarea#edit, #highlight {
-  grid-area: 1 / 1 / 2 / 2;
-  margin: 10px;
+  grid-area: 1 / 1 / 4 / 2;
+  margin: 0px;
   padding: 10px;
   border: 0;
-  width: calc(100% - 32px);
-  height: 150px;
-  overflow-x: auto;
-  overflow-y: scroll;
-  white-space: pre-wrap;
+  overflow: visible;
+  white-space: pre;
   resize: none;
 }
 

@@ -34,16 +34,19 @@ const Editor = () => {
   return <div
     className='Editor'
   >
-    <textarea
-      id='edit'
-      onChange={e => setContent(e.target.value)}
-      value={content}
-    ></textarea>
-    <pre id='highlight' aria-hidden='true'>
-      <code
-        dangerouslySetInnerHTML={highlighted}
-      ></code>
-    </pre>
+    <div className='EditorScroll'>
+      <textarea
+        id='edit'
+        spellCheck='false'
+        onChange={e => setContent(e.target.value)}
+        value={content}
+      ></textarea>
+      <pre id='highlight' aria-hidden='true'>
+        <code
+          dangerouslySetInnerHTML={highlighted}
+        ></code>
+      </pre>
+    </div>
   </div>
 }
 
