@@ -55,7 +55,7 @@ readFile(input, 'utf8')
     macroArr.forEach(mStr => {
       // match the macro name
       const fnName = mStr.match(/(?<=&).*?(?=\()/)[0]
-      if (!macros.has(fnName)) throw new Error('unknown macro function')
+      if (!macros.has(fnName)) throw new Error(`unknown macro function, "${fnName}"`)
       const param = mStr.match(/(?<=\().*?(?=\))/sm)[0]
       // inject the new value
       // if the same macro exists twice, this will get both
