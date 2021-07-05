@@ -11,7 +11,6 @@ const macros = new Map(Object.entries({
     .filter(s => s !== '')
     .join('.')}`),
   comment: (() => ''),
-  escape: CSS.escape,
 }))
 
 const directives = new Set([
@@ -49,6 +48,14 @@ readFile(input, 'utf8')
     str = `${str}
 @end
 `// this adds the eof to the file for easy parse
+
+    // escape macro step
+    // this is needed because escape macros can be nested
+    const escapeArr = str.match(/(?<=^\s*)&escape.*/gm) || []
+    escapeArr.forEach(mStr => {
+      // escape everything after the space
+      str = str.replace(mStr, CSS.escape(mStr.match(/(?<=\s).*/)[0]))
+    })
 
     // macro step
 
