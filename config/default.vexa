@@ -17,11 +17,13 @@
     py12
     jc-space-between
     ai-center
-    &escape lg:pl24
-    &escape lg:pr24
-    &escape md:fd-column
-    &escape sm:fd-row
-    &escape sm:ai-center
+    &escape(
+      lg:pl24
+      lg:pr24
+      md:fd-column
+      sm:fd-row
+      sm:ai-center
+    )
   )
 
 @time.com

@@ -50,11 +50,25 @@ readFile(input, 'utf8')
 `// this adds the eof to the file for easy parse
 
     // escape macro step
+
     // this is needed because escape macros can be nested
-    const escapeArr = str.match(/(?<=^\s*)&escape.*/gm) || []
+    const escapeArr = str.match(/(?<=^\s*)&escape\s.*/gm) || []
     escapeArr.forEach(mStr => {
       // escape everything after the space
       str = str.replace(mStr, CSS.escape(mStr.match(/(?<=\s).*/)[0]))
+    })
+    // this step matches escape macros with () syntax
+    const mEscapeArr = str.match(/&escape\(.*?\)/gs) || []
+    mEscapeArr.forEach(mStr => {
+      str = str.replace(
+        mStr,
+        mStr
+          .match(/(?<=\().*?(?=\))/s)[0]
+          .split(/[\n\r\s]+/g)
+          .filter(s => s !== '')
+          .map(CSS.escape)
+          .join(' ')
+      )
     })
 
     // macro step
