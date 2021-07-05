@@ -12,6 +12,21 @@ const macros = new Map(Object.entries({
   comment: (() => ''),
 }))
 
+const expandMacros = str => {
+  // match the entire macro, for every macro
+  const macroArr = str.match(/&\w*?\(.*?\)/sgm) || []
+  macroArr.forEach(mStr => {
+    // match the macro name
+    const fnName = mStr.match(/(?<=&).*?(?=\()/)[0]
+    if (!macros.has(fnName)) throw new Error('unknown macro function')
+    const param = mStr.match(/(?<=\().*?(?=\))/sm)[0]
+    // inject the new value
+    // if the same macro exists twice, this will get both
+    str = str.replace(mStr, macros.get(fnName)(param))
+  })
+  return str
+}
+
 const directives = new Set([
   'load',
   'update',
@@ -50,17 +65,7 @@ readFile(input, 'utf8')
 
     // macro step
 
-    // match the entire macro, for every macro
-    const macroArr = str.match(/&\w*?\(.*?\)/sgm) || []
-    macroArr.forEach(mStr => {
-      // match the macro name
-      const fnName = mStr.match(/(?<=&).*?(?=\()/)[0]
-      if (!macros.has(fnName)) throw new Error('unknown macro function')
-      const param = mStr.match(/(?<=\().*?(?=\))/sm)[0]
-      // inject the new value
-      // if the same macro exists twice, this will get both
-      str = str.replace(mStr, macros.get(fnName)(param))
-    })
+    str = expandMacros(str)
 
     // end macro step
 
