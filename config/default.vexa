@@ -9,6 +9,20 @@
 
 @stackoverflow.com
   &class(js-freemium-cta ps-relative)
+  &class(
+    grid
+    wmx12
+    mx-auto
+    px8
+    py12
+    jc-space-between
+    ai-center
+    &escape lg:pl24
+    &escape lg:pr24
+    &escape md:fd-column
+    &escape sm:fd-row
+    &escape sm:ai-center
+  )
 
 @time.com
   &class(
