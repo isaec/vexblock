@@ -1,3 +1,8 @@
+@css-tricks.com
+  &class(entry-unrelated sidebar)
+  .end-of-article-ads
+  .article-sponsor
+
 @nationalgeographic.com
   div [data-track-event_name="creative click"]
 
@@ -9,22 +14,7 @@
 
 @stackoverflow.com
   &class(js-freemium-cta ps-relative)
-  &class(
-    grid
-    wmx12
-    mx-auto
-    px8
-    py12
-    jc-space-between
-    ai-center
-    &escape(
-      lg:pl24
-      lg:pr24
-      md:fd-column
-      sm:fd-row
-      sm:ai-center
-    )
-  )
+  &class(bg-black-025 bs-sm bt bc-black-100 ps-fixed l0 r0 b0 z-nav js-dismissable-hero)
 
 @time.com
   &class(
