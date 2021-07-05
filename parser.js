@@ -1,5 +1,6 @@
 const { readFile, writeFile } = require('fs/promises')
 const Path = require('path')
+require('css.escape')
 
 const [input] = process.argv.slice(2)
 console.log(`attempting to parse ${input}`)
@@ -10,6 +11,7 @@ const macros = new Map(Object.entries({
     .filter(s => s !== '')
     .join('.')}`),
   comment: (() => ''),
+  escape: CSS.escape,
 }))
 
 const directives = new Set([
