@@ -14,19 +14,19 @@ const Editor = () => {
   const highlighted = useMemo(() => ({
     __html: sanitize(content)
       .replace(
-        /^(@)(?<domain>[^\s]*)/gm, //domains
+        /^(@)(?<domain>[^\s]*)/gm, // domains
         `${color('magenta', '@')}${color('blue', '$<domain>')}`
       )
       .replace(
-        /^\s*?\/\/.*/gm, //comments
+        /^\s*?\/\/.*/gm, // comments
         color('base01')
       )
       .replace(
-        /(?<name>&amp;\w*?\()(?<arg>.*?)\)/gms, //macros
+        /(?<name>&amp;\w*?\()(?<arg>.*?)\)/gms, // macros
         color('yellow', `$<name>${color('green', '$<arg>')})`)
       )
       .replace( 
-        /^(on\s)(?<directive>\w+)/gm, //directives
+        /^(on\s)(?<directive>\w+)/gm, // directives
         `${color('violet', 'on')} ${color('cyan', '$<directive>')}`
       )
       + ' '

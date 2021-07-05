@@ -20,12 +20,12 @@ const directives = new Set([
 const parsedToList = lines => {
   const partialMap = new Map(),
     finishedPartials = new Set()
-  //walk over every line
+  // walk over every line
   lines.forEach(({ level, str }, i, arr) => {
     if (partialMap.has(level)) {
-      //test if we just dropped a scope
+      // test if we just dropped a scope
       if (arr[i - 1].level <= level) {
-        //if we didnt, store the old partial, its done
+        // if we didnt, store the old partial, its done
         finishedPartials.add(partialMap.get(level))
       }
     }
@@ -48,27 +48,27 @@ readFile(input, 'utf8')
 @end
 `// this adds the eof to the file for easy parse
 
-    //macro step
+    // macro step
 
-    //match the entire macro, for every macro
+    // match the entire macro, for every macro
     const macroArr = str.match(/&\w*?\(.*?\)/sgm) || []
     macroArr.forEach(mStr => {
-      //match the macro name
+      // match the macro name
       const fnName = mStr.match(/(?<=&).*?(?=\()/)[0]
       if (!macros.has(fnName)) throw new Error('unknown macro function')
       const param = mStr.match(/(?<=\().*?(?=\))/sm)[0]
-      //inject the new value
-      //if the same macro exists twice, this will get both
+      // inject the new value
+      // if the same macro exists twice, this will get both
       str = str.replace(mStr, macros.get(fnName)(param))
     })
 
-    //end macro step
+    // end macro step
 
 
-    //split the string into chunks, one domain per chunk, using @ symbol
+    // split the string into chunks, one domain per chunk, using @ symbol
     const chunks = str.match(/(?<=^@)(.|\n)*?(?=\n@)/gm)
 
-    //store all the parsed chunks in one map
+    // store all the parsed chunks in one map
     const parsedMap = new Map()
 
     chunks.forEach(chunk => {
@@ -76,10 +76,10 @@ readFile(input, 'utf8')
       const lines = chunk.split('\n')
       parsedMap.set(lines[0], (
         lines.slice(1)
-          //check for empty lines and comments
+          // check for empty lines and comments
           .filter(str => !/^((\s*?\/\/)|\s*$)/.test(str))
           .map(line => ({
-            //match for double spaces
+            // match for double spaces
             level: (line.match(/(\s\s)/g) || []).length,
             str: line.trim(),
           }))
@@ -108,7 +108,7 @@ readFile(input, 'utf8')
     })
 
 
-    //now, lets walk the sections and parse it further
+    // now, lets walk the sections and parse it further
     const scopedObj = {}
     parsedSections.forEach((sections, domain) => {
       scopedObj[domain] = {}

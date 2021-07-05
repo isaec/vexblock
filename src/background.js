@@ -37,7 +37,7 @@ chrome.webNavigation.onCommitted.addListener(async ({ tabId, url }) => {
       })
     }
 
-    //to eventually use on change ect, use args for script injection
+    // to eventually use on change ect, use args for script injection
   }
 })
 

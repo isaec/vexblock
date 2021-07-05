@@ -35,3 +35,6 @@ rules:
   semi:
     - error
     - never
+  spaced-comment:
+    - error
+    - always
