@@ -25,8 +25,8 @@ const Editor = () => {
         /(?<name>&amp;\w*?\()(?<arg>.*?)\)/gms, //macros
         color('yellow', `$<name>${color('green', '$<arg>')})`)
       )
-      .replace( //directives
-        /^(on\s)(?<directive>\w*)/gm,
+      .replace( 
+        /^(on\s)(?<directive>\w+)/gm, //directives
         `${color('violet', 'on')} ${color('cyan', '$<directive>')}`
       )
       + ' '
