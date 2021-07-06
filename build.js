@@ -24,7 +24,6 @@ esbuild.build({
   bundle: true,
   entryPoints: [
     'background.js',
-    'foreground.js',
     'options.jsx',
     'popup.jsx'
   ].map(str => `src/${str}`),
