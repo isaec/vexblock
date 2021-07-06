@@ -1,7 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './options/options.scss'
+import './edit/edit.scss'
 
-const App = () => <div>options</div>
+import Editor from './options/Editor'
+
+const App = () => <div>
+  <Editor></Editor>
+</div>
 
 ReactDOM.render(<App />, document.querySelector('#root'))

@@ -25,7 +25,8 @@ esbuild.build({
   entryPoints: [
     'background.js',
     'options.jsx',
-    'popup.jsx'
+    'popup.jsx',
+    'edit.jsx',
   ].map(str => `src/${str}`),
   outdir: 'build',
   plugins: [sassPlugin({cache: true})],
@@ -40,4 +41,5 @@ bLib.Dir.mirror('config', 'build/config')
 bLib.FileArray.mirror('src', 'build', [
   'options.html',
   'popup.html',
+  'edit.html',
 ])
