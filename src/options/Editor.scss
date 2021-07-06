@@ -3,13 +3,10 @@
 .Editor {
   overflow: scroll;
   position: relative;
-  max-height: 500px;
-  max-width: 100%;
 }
 
 .EditorScroll {
   display: grid;
-  height: 350px;
   background-color: blue;
 }
 
