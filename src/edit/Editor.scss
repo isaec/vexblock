@@ -49,6 +49,26 @@ $colors: (
   'green'   : #859900,
 );
 
+.Editor {
+  $bg: map.get($colors, 'base03');
+  $fg: map.get($colors, 'base02');
+  $size: 12pt;
+
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $bg;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $fg;
+  }
+  &::-webkit-scrollbar-corner {
+    background-color: $bg;
+  }
+}
+
 textarea#edit {
   color: transparent;
   background: transparent;
