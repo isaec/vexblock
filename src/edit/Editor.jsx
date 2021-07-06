@@ -26,7 +26,7 @@ const Editor = () => {
         color('yellow', `$<name>${color('green', '$<arg>')})`)
       )
       .replace(
-        /(?<space>^\s*)&amp;escape\s(?<arg>.*)/gm,
+        /(?<space>^\s*)&amp;escape\s(?<arg>.+)/gm, // escape single liners
         `$<space>${color('yellow', '&escape')} ${color('cyan bg-base02', '$<arg>')}`
       )
       .replace( 
