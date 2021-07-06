@@ -7,7 +7,6 @@
 
 .EditorScroll {
   display: grid;
-  background-color: blue;
 }
 
 textarea#edit, #highlight {
@@ -59,14 +58,20 @@ textarea#edit {
     color: map.get($colors, 'base1');
     background-color: map.get($colors, 'base02');
   }
+  &:focus{
+    outline: none;
+  }
 }
 
 #highlight {
   z-index: 0;
 }
 
-#highlight {
+#highlight, .Editor {
   background-color: map.get($colors, 'base03');
+}
+
+#highlight {
   & code {
     color: map.get($colors, 'base0');
   }
