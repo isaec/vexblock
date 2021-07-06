@@ -4,7 +4,9 @@ import './edit/edit.scss'
 
 import Editor from './edit/Editor'
 
-const App = () => <div>
+const App = () => <div
+  id='App'
+>
   <Editor></Editor>
 </div>
 

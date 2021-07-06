@@ -1,0 +1,12 @@
+body, #root {
+  padding: 0px;
+  margin: 0px;
+}
+
+#App {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr;
+}
