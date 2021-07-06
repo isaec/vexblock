@@ -26,8 +26,8 @@ const Editor = () => {
         color('yellow', `$<name>${color('green', '$<arg>')})`)
       )
       .replace(
-        /^\s*&amp;escape\s(?<arg>.*)/gm,
-        `${color('yellow', '&escape')} ${color('cyan bg-base02', '$<arg>')}`
+        /(?<space>^\s*)&amp;escape\s(?<arg>.*)/gm,
+        `$<space>${color('yellow', '&escape')} ${color('cyan bg-base02', '$<arg>')}`
       )
       .replace( 
         /^(on\s)(?<directive>\w+)/gm, // directives
