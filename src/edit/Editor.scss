@@ -79,5 +79,8 @@ textarea#edit {
     & span.#{$color} {
       color: $hex;
     }
+    & span.bg-#{$color} {
+      background-color: $hex;
+    }
   }
 }

@@ -6,7 +6,7 @@ const sanitize = str => {
   temp.textContent = str
   return temp.innerHTML
 }
-const color = (code, str = '$&') => `<span class=${code}>${str}</span>`
+const color = (code, str = '$&') => `<span class="${code}">${str}</span>`
 
 const Editor = () => {
 
@@ -27,7 +27,7 @@ const Editor = () => {
       )
       .replace(
         /^\s*&amp;escape\s(?<arg>.*)/gm,
-        `${color('yellow', '&escape')} ${color('violet', '$<arg>')}`
+        `${color('yellow', '&escape')} ${color('cyan bg-base02', '$<arg>')}`
       )
       .replace( 
         /^(on\s)(?<directive>\w+)/gm, // directives
