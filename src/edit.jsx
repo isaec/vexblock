@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './edit/edit.scss'
 
-import Editor from './options/Editor'
+import Editor from './edit/Editor'
 
 const App = () => <div>
   <Editor></Editor>
