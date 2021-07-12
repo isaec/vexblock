@@ -29,7 +29,7 @@ const Editor = () => {
         /(?<space>^\s*)&amp;escape\s(?<arg>.+)/gm, // escape single liners
         `$<space>${color('yellow', '&escape')} ${color('cyan bg-base02', '$<arg>')}`
       )
-      .replace( 
+      .replace(
         /^(on\s)(?<directive>\w+)/gm, // directives
         `${color('violet', 'on')} ${color('cyan', '$<directive>')}`
       )
@@ -39,7 +39,7 @@ const Editor = () => {
   return <div
     className='Editor'
     onClick={() => {
-      textarea.current.focus()
+      textarea.current.focus({ preventScroll: true })
     }}
   >
     <div className='EditorScroll'>
