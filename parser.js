@@ -1,6 +1,6 @@
-const { readFile, writeFile } = require('fs/promises')
-const Path = require('path')
-require('css.escape')
+import { readFile, writeFile } from 'fs/promises'
+import Path from 'path'
+import 'css.escape'
 
 const [input] = process.argv.slice(2)
 console.log(`attempting to parse ${input}`)

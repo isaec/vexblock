@@ -1,5 +1,4 @@
-const { readFile, writeFile } = require('fs/promises')
-const Path = require('path')
+import { readFile, writeFile } from 'fs/promises'
 
 const [input] = process.argv.slice(2)
 console.log(`attempting to sort ${input}`)
@@ -19,4 +18,5 @@ readFile(input, 'utf8')
       .join('\n\n')
 
     writeFile(input, sorted)
+    console.log('sorted.')
   })
