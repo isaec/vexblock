@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useRef } from 'react'
 import './Editor.scss'
 
 const sanitize = str => {
@@ -9,8 +9,8 @@ const sanitize = str => {
 const color = (code, str = '$&') => `<span class="${code}">${str}</span>`
 
 const Editor = () => {
-
   const [content, setContent] = useState('test!')
+  const textarea = useRef()
   const highlighted = useMemo(() => ({
     __html: sanitize(content)
       .replace(
@@ -38,12 +38,16 @@ const Editor = () => {
 
   return <div
     className='Editor'
+    onClick={() => {
+      textarea.current.focus()
+    }}
   >
     <div className='EditorScroll'>
       <textarea
         id='edit'
         spellCheck='false'
         onChange={e => setContent(e.target.value)}
+        ref={textarea}
         value={content}
       ></textarea>
       <pre id='highlight' aria-hidden='true'>
