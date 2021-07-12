@@ -22,6 +22,7 @@ esbuild.build({
   ...envSettings,
   allowOverwrite: true,
   bundle: true,
+  external: ['fonts/hack-regular-subset.woff2'],
   entryPoints: [
     'background.js',
     'options.jsx',
@@ -29,7 +30,7 @@ esbuild.build({
     'edit.jsx',
   ].map(str => `src/${str}`),
   outdir: 'build',
-  plugins: [sassPlugin({cache: true})],
+  plugins: [sassPlugin({ cache: true })],
 }).catch(() => process.exit(1))
 
 bLib.ensureDir('build')
@@ -37,7 +38,7 @@ bLib.ensureDir('build')
 bLib.Dir.mirror('browser', 'build')
 bLib.Dir.mirror('browser', 'build', 'icons')
 bLib.Dir.mirror('config', 'build/config')
-bLib.Dir.mirror('fonts', 'build/fonts')
+bLib.Dir.mirror('src', 'build', 'fonts')
 
 bLib.FileArray.mirror('src', 'build', [
   'options.html',
