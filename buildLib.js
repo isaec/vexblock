@@ -1,6 +1,6 @@
-const Path = require('path')
-const { copyFile, unlink, readdir, mkdir } = require('fs/promises')
-const { watch, mkdirSync } = require('fs')
+import Path from 'path'
+import { copyFile, unlink, readdir, mkdir } from 'fs/promises'
+import { watch, mkdirSync } from 'fs'
 
 const mLog = e => {
   if (e.code !== 'EEXIST' && e.code !== 'EISDIR') console.log(e)
@@ -95,16 +95,19 @@ const mirrorFileArray = (from, to, arr) => {
   syncFileArray(from, to, arr)
 }
 
-module.exports = {
+const Dir = {
+  copy: copyDir,
+  sync: syncDir,
+  mirror: mirrorDir,
+}
+const FileArray = {
+  copy: copyFileArray,
+  sync: syncFileArray,
+  mirror: mirrorFileArray,
+}
+
+export default {
   ensureDir,
-  Dir: {
-    copy: copyDir,
-    sync: syncDir,
-    mirror: mirrorDir,
-  },
-  FileArray: {
-    copy: copyFileArray,
-    sync: syncFileArray,
-    mirror: mirrorFileArray,
-  },
+  Dir,
+  FileArray,
 }

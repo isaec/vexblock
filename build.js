@@ -1,6 +1,6 @@
-const esbuild = require('esbuild')
-const { sassPlugin } = require('esbuild-sass-plugin')
-const bLib = require('./buildLib')
+import esbuild from 'esbuild'
+import { sassPlugin } from 'esbuild-sass-plugin'
+import bLib from './buildLib.js'
 
 const envSettings = (
   env => {
