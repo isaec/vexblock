@@ -128,6 +128,16 @@ export const strToSectionMap = str => {
   return parsedSections
 }
 
+// mutates in memory )=
+export const sectionMapToTargetSet = sectionMap => {
+  sectionMap.forEach((sections, domain) => {
+    sections.forEach((parsedMapSection, directive) => {
+      sections.set(directive, parsedToTargetSet(parsedMapSection))
+    })
+  })
+  return sectionMap
+}
+
 export const sectionMapToScopedObj = sectionMap => {
   const scopedObj = {}
   sectionMap.forEach((sections, domain) => {
