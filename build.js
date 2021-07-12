@@ -37,6 +37,7 @@ bLib.ensureDir('build')
 bLib.Dir.mirror('browser', 'build')
 bLib.Dir.mirror('browser', 'build', 'icons')
 bLib.Dir.mirror('config', 'build/config')
+bLib.Dir.mirror('fonts', 'build/fonts')
 
 bLib.FileArray.mirror('src', 'build', [
   'options.html',
