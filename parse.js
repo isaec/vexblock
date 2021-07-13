@@ -6,16 +6,14 @@ import { strsToScopedObj } from './src/parser.js'
 const inputs = process.argv.slice(2)
 console.log(`attempting to parse [ ${inputs.join(', ')} ]`)
 
-readFile(input, 'utf8')
-  .then(str => {
+Promise.all(inputs.map(filePath => readFile(filePath, 'utf8'))).then(strArr => {
 
+  const output = strsToScopedObj(strArr)
 
-    const output = strsToScopedObj([str, str])
+  console.log(output)
+  writeFile('config/vexa.json', JSON.stringify(output)).then(
+    () => console.log('all done!')
+  )
 
-
-    console.log(output)
-    writeFile(`${Path.dirname(input)}/vexa.json`, JSON.stringify(output)).then(
-      () => console.log('all done!')
-    )
-  })
+})
   .catch(e => console.log(e))
