@@ -133,7 +133,6 @@ export const strToSectionTargetMap = str => {
   return parsedSections
 }
 
-
 export const sectionTargetMapToScopedObj = sectionMap => {
   const scopedObj = {}
   sectionMap.forEach((sections, domain) => {
@@ -144,6 +143,8 @@ export const sectionTargetMapToScopedObj = sectionMap => {
   })
   return scopedObj
 }
+
+export const strToScopedObj = str => sectionTargetMapToScopedObj(strToSectionTargetMap(str))
 
 const getDomainName = str => str.trim().split('\n')[0]
 

@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'fs/promises'
 import Path from 'path'
 
-import { strToSectionTargetMap, sectionTargetMapToScopedObj} from './src/parser.js'
+import { strToScopedObj } from './src/parser.js'
 
 const [input] = process.argv.slice(2)
 console.log(`attempting to parse ${input}`)
@@ -10,7 +10,7 @@ readFile(input, 'utf8')
   .then(str => {
 
 
-    const output = sectionTargetMapToScopedObj(strToSectionTargetMap(str))
+    const output = strToScopedObj(str)
 
 
     console.log(output)
