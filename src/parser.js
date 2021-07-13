@@ -144,3 +144,10 @@ export const sectionTargetMapToScopedObj = sectionMap => {
   })
   return scopedObj
 }
+
+const getDomainName = str => str.trim().split('\n')[0]
+
+export const strToSortedStr = str => Array.from(addEnd(str).matchAll(/^@(.|\n)*?(?=\n@)/gm), m => m[0])
+  .sort((a, b) => getDomainName(a).localeCompare(getDomainName(b)))
+  .map(str => str.trim())
+  .join('\n\n')
