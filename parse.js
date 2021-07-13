@@ -1,16 +1,16 @@
 import { readFile, writeFile } from 'fs/promises'
 import Path from 'path'
 
-import { strToScopedObj } from './src/parser.js'
+import { strsToScopedObj } from './src/parser.js'
 
-const [input] = process.argv.slice(2)
-console.log(`attempting to parse ${input}`)
+const inputs = process.argv.slice(2)
+console.log(`attempting to parse [ ${inputs.join(', ')} ]`)
 
 readFile(input, 'utf8')
   .then(str => {
 
 
-    const output = strToScopedObj(str)
+    const output = strsToScopedObj([str, str])
 
 
     console.log(output)

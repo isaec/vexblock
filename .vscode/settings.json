@@ -4,6 +4,7 @@
       "fullhost",
       "outdir",
       "readonly",
+      "strs",
       "vexa",
       "vexblock"
     ],

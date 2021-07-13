@@ -144,7 +144,33 @@ export const sectionTargetMapToScopedObj = sectionMap => {
   return scopedObj
 }
 
-export const strToScopedObj = str => sectionTargetMapToScopedObj(strToSectionTargetMap(str))
+const mergeSet = (target, source) => {
+  for (const item of source) {
+    target.add(item)
+  }
+}
+
+const mergeMapSets = (target, ...sources) => {
+  for (const source of sources) {
+    for (const [domain, directives] of source) {
+      if (!target.has(domain)) {
+        target.set(domain, directives)
+      } else {
+        for (const [directive, selectors] of directives) {
+          mergeSet(target.get(domain).get(directive), selectors)
+        }
+      }
+    }
+  }
+}
+
+export const strsToScopedObj = (strs) => {
+  const sectionTargetMapsArr = strs.map(strToSectionTargetMap)
+  mergeMapSets(...sectionTargetMapsArr)
+  return sectionTargetMapToScopedObj(sectionTargetMapsArr[0])
+}
+
+export const strToScopedObj = (str) => sectionTargetMapToScopedObj(strToSectionTargetMap(str))
 
 const getDomainName = str => str.trim().split('\n')[0]
 
