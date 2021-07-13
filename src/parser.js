@@ -39,7 +39,7 @@ export const parsedToTargetSet = lines => {
 
 export const targetSetToList = targetSet => Array.from(targetSet).join(',')
 
-export const strToSectionMap = str => {
+export const strToSectionTargetMap = str => {
   str = `${str}
 @end
 `// this adds the eof to the file for easy parse
@@ -122,28 +122,24 @@ export const strToSectionMap = str => {
         }
       }
     })
+
+    sectionMap.forEach((parsedMapSection, mapDirective) => {
+      sectionMap.set(mapDirective, parsedToTargetSet(parsedMapSection))
+    })
+
     parsedSections.set(domain, sectionMap)
   })
 
   return parsedSections
 }
 
-// mutates in memory )=
-export const sectionMapToTargetSet = sectionMap => {
-  sectionMap.forEach((sections, domain) => {
-    sections.forEach((parsedMapSection, directive) => {
-      sections.set(directive, parsedToTargetSet(parsedMapSection))
-    })
-  })
-  return sectionMap
-}
 
-export const sectionMapToScopedObj = sectionMap => {
+export const sectionTargetMapToScopedObj = sectionMap => {
   const scopedObj = {}
   sectionMap.forEach((sections, domain) => {
     scopedObj[domain] = {}
     sections.forEach((parsedMapSection, directive) => {
-      scopedObj[domain][directive] = targetSetToList(parsedToTargetSet(parsedMapSection))
+      scopedObj[domain][directive] = targetSetToList(parsedMapSection)
     })
   })
   return scopedObj
