@@ -39,13 +39,13 @@ export const parsedToTargetSet = lines => {
 
 export const targetSetToList = targetSet => Array.from(targetSet).join(',')
 
+export const addEnd = str => `${str}
+@end`// this adds the eof to the file for easy parse
+
 export const strToSectionTargetMap = str => {
-  str = `${str}
-@end
-`// this adds the eof to the file for easy parse
+  str = addEnd(str)
 
   // escape macro step
-
   // this is needed because escape macros can be nested
   const escapeArr = str.match(/(?<=^\s*)&escape\s.*/gm) || []
   escapeArr.forEach(mStr => {
